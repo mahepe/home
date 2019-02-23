@@ -81,7 +81,7 @@ window.mobilecheck = function() {
 
 
 var f = function(){
-    if(window.PIXI === undefined){
+    if(window.PIXI === undefined || !document.getElementById("banner_canvas")){
         window.setTimeout(() => f(), 100);
     } else if(!window.mobilecheck()) {
         start();
