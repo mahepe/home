@@ -59,11 +59,6 @@ var start = function(){
         for(let p of particles){
             p.x += delta*p.vx;
             p.y += delta*p.vy;
-            if(Math.abs(p.x - window.innerWidth / 2) < w){
-                p.alpha = 0.05;
-            } else {
-                p.alpha = Math.max(Math.min((Math.abs(p.x - window.innerWidth / 2) - w) / (0.2*window.innerWidth), 1), 0.05);
-            }
             if(p.x >= window.innerWidth + 20){
                 p.x = -20;
             }
