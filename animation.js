@@ -76,8 +76,8 @@ var start = function(mobile){
             p.y += delta*p.vy;
             p.width = (Math.sin(time/100+p.offset)+1)*p.sz;
             p.height = (Math.sin(time/100+p.offset)+1)*p.sz;
-            if(p.x >= window.innerWidth + 20){
-                p.x = -20;
+            if(p.x >= window.innerWidth + 100){
+                p.x = -100;
             }
         }
         app.renderer.render(drops);
