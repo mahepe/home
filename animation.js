@@ -1,5 +1,5 @@
 var start = function(){
-    const AMOUNT = 1000;
+    const AMOUNT = 2000;
     const COLOR = 0xffffff;
     const PIXI = window.PIXI;
     const canvas = document.getElementById("banner_canvas");
@@ -22,14 +22,16 @@ var start = function(){
     const genParticles = (texture) =>
           new Array(AMOUNT).fill().map(p => {
               var s = new PIXI.Sprite(texture);
-              let size = Math.floor(Math.random()*13)+3;
-              s.width = size;
-              s.height = size;
+              let size = Math.floor(Math.random()*6)+3;
+              s.sz = size;
+              s.width = s.sz;
+              s.height = s.sz;
               s.x = Math.random()*window.innerWidth;
               s.y = Math.random()*window.innerHeight;
-              s.vx = (size / 20 + Math.random()/5);
-              s.vy = (Math.random()-0.5)*0.1;
-              s.alpha = 1;
+              s.offset = Math.random()*2*Math.PI;
+              s.vx = 1.5/size;
+              s.vy = 0;
+              s.alpha = 20/(size*size);
               s.tint = randomColor();
               drops.addChild(s);
               return s;
@@ -45,8 +47,11 @@ var start = function(){
     const baseTexture = app.renderer.generateTexture(p)
     let particles = genParticles(baseTexture)
 
+    var time = 0;
+
     // Listen for animate update
     app.ticker.add(function(delta) {
+        time += delta;
         if (
             app.renderer.height !== innerHeight ||
                 app.renderer.width !== innerWidth
@@ -59,6 +64,8 @@ var start = function(){
         for(let p of particles){
             p.x += delta*p.vx;
             p.y += delta*p.vy;
+            p.width = (Math.sin(time/100+p.offset)+1)*p.sz;
+            p.height = (Math.sin(time/100+p.offset)+1)*p.sz;
             if(p.x >= window.innerWidth + 20){
                 p.x = -20;
             }
