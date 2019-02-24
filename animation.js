@@ -1,4 +1,7 @@
 var start = function(mobile){
+    if(mobile){
+        return;
+    }
     const AMOUNT = (() => {
         if(mobile){
             return 200;
