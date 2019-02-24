@@ -1,5 +1,11 @@
-var start = function(){
-    const AMOUNT = 2000;
+var start = function(mobile){
+    const AMOUNT = (() => {
+        if(mobile){
+            return 200;
+        } else {
+            return 2000;
+        }
+    })()
     const COLOR = 0xffffff;
     const PIXI = window.PIXI;
     const canvas = document.getElementById("banner_canvas");
@@ -53,8 +59,8 @@ var start = function(){
     app.ticker.add(function(delta) {
         time += delta;
         if (
-            app.renderer.height !== innerHeight ||
-                app.renderer.width !== innerWidth
+            (app.renderer.height !== innerHeight ||
+             app.renderer.width !== innerWidth) && !mobile
         ) {
             app.renderer.resize(innerWidth, innerHeight)
             drops.removeChildren()
@@ -85,8 +91,8 @@ window.mobilecheck = function() {
 var f = function(){
     if(window.PIXI === undefined || !document.getElementById("banner_canvas")){
         window.setTimeout(() => f(), 100);
-    } else if(!window.mobilecheck()) {
-        start();
+    } else {
+        start(window.mobilecheck());
     }
 }
 
