@@ -29,7 +29,11 @@ var start = function(mobile){
           new Array(AMOUNT).fill().map(p => {
               var s = new PIXI.Sprite(texture);
               let size = Math.floor(Math.random()*6)+3;
-              s.sz = 1.7*size;
+              if(mobile){
+                  s.sz = 3*size;
+              } else {
+                  s.sz = 1.7*size;
+              }
               s.width = s.sz;
               s.height = s.sz;
               s.x = Math.random()*window.innerWidth;
